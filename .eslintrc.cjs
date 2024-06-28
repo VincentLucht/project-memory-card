@@ -23,7 +23,7 @@ module.exports = {
     "prettier/prettier": "error", // Treat Prettier issues as errors
     "semi": [2, "always"], // Enforce semicolons at the end of statements
     "quotes": [2, "single"], // Enforce single quotes for strings
-    "indent": [2, 2], // Enforce 2 spaces for indentation
+    "indent": [2, 2, { "SwitchCase": 1 }],// 2 spaces for indentation, and 1 additional level for switch cases
     "no-trailing-spaces": 2, // Disallow trailing whitespace at the end of lines
     "eol-last": 2, // Enforce a newline at the end of files
     "no-multiple-empty-lines": [2, { "max": 1 }], // Disallow multiple empty lines
