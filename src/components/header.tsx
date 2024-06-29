@@ -2,12 +2,15 @@ interface HeaderProps {
   score: number;
   highscore: number;
   difficulty: string | null;
+  reset: () => void;
 }
-export function Header({ score, highscore, difficulty }: HeaderProps) {
+export function Header({ score, highscore, difficulty, reset }: HeaderProps) {
   return (
     <header>
       <div>
-        <button className="reset">Reset</button>
+        <button className="reset" onClick={reset}>
+          Reset
+        </button>
         <div className="highscore">Difficulty: {difficulty}</div>
       </div>
 
