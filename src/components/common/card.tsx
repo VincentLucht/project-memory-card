@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
+import { fetchGif } from '../../typescript/fetchGif';
 
-interface CardProps {
-  query: string;
-  name: string;
-}
 interface GifData {
   images: {
     original: {
@@ -11,35 +8,24 @@ interface GifData {
     };
   };
 }
-function Card({ query, name }: CardProps) {
+interface CardProps {
+  query: string;
+  name: string;
+  className: string;
+}
+function Card({ onClick, query, name, className = 'card' }: CardProps) {
   const [gif, setGif] = useState<GifData | null>(null); // initialize with null or a structure that matches your expected data
 
   useEffect(() => {
-    const fetchGif = async () => {
-      const API_KEY = 'gITEY8DSUDIHSunL7lYFsxUthoB3mE8S';
-      const endpoint = `https://api.giphy.com/v1/gifs/${query}?api_key=${API_KEY}`;
-
-      try {
-        const response = await fetch(endpoint);
-
-        if (!response.ok) {
-          throw new Error(`Network error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-
-        if (data.data) {
-          setGif(data.data);
-        } else {
-          throw new Error('No GIF found');
-        }
-      } catch (error) {
-        console.error('Error fetching gif:', error.message);
+    const fetchGifData = async () => {
+      const gifData = await fetchGif(query);
+      if (gifData) {
+        setGif(gifData);
       }
     };
 
     if (query) {
-      fetchGif();
+      fetchGifData();
     }
   }, [query]);
 
@@ -49,7 +35,7 @@ function Card({ query, name }: CardProps) {
   }
 
   return (
-    <div className="card">
+    <div className={className} onClick={onClick}>
       <div
         className="card-image"
         style={{ backgroundImage: `url("${gif.images.original.url}")` }}
