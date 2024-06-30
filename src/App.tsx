@@ -2,11 +2,12 @@ import './css/App.css';
 import { useState } from 'react';
 import { Header } from './components/header';
 import { Main } from './components/main';
+import { Footer } from './components/footer';
 
 import { Difficulty } from './components/common/difficulty';
 import { Card } from './components/common/card';
 import { shuffle } from './typescript/randomize';
-import { viewStates } from './typescript/states';
+import { getMessage, viewStates } from './typescript/states';
 import { WinScreen, LooseScreen } from './components/common/gameState';
 
 export default function App() {
@@ -16,6 +17,8 @@ export default function App() {
   const [difficulty, setDifficulty] = useState<string | null>(null);
 
   const [view, setView] = useState(viewStates.chooseDifficulty);
+  const [selectedClass, setSelectedClass] = useState('');
+  const [message, setMessage] = useState('');
 
   const gameOver = () => {
     setHighscore(score);
@@ -23,6 +26,7 @@ export default function App() {
     setCharacters([]);
     setDifficulty(null);
     setView(viewStates.gameOver);
+    setSelectedClass('');
   };
 
   const reset = () => {
@@ -30,6 +34,7 @@ export default function App() {
     setCharacters([]);
     setDifficulty(null);
     setView(viewStates.chooseDifficulty);
+    setSelectedClass('');
   };
 
   const determineWin = (array: object[]) => {
@@ -55,6 +60,7 @@ export default function App() {
     picked: boolean;
   }) => {
     if (picked) {
+      setMessage(getMessage(difficulty, false));
       gameOver();
       return;
     }
@@ -73,31 +79,35 @@ export default function App() {
 
     setCharacters(newCharacters);
 
-    if (determineWin(newCharacters)) {
+    const hasWon = determineWin(newCharacters);
+    if (hasWon) {
       setCharacters([]);
       setHighscore(score + 1); // set highscore after win
       setView(viewStates.wonGame);
+      setMessage(getMessage(difficulty, hasWon));
     }
   };
 
   return (
-    <div>
+    <div className="content-wrapper">
       <Header
         score={score}
         highscore={highscore}
         difficulty={!difficulty ? 'Select Difficulty' : difficulty}
         reset={reset}
       ></Header>
+
       <Main>
         {view === viewStates.chooseDifficulty && (
           <Difficulty
             setCharacters={setCharacters}
             setDifficulty={setDifficulty}
             setView={setView}
+            setSelectedClass={setSelectedClass}
           />
         )}
 
-        <div className="card-container">
+        <div className={`card-container ${selectedClass}`}>
           {characters.map((character) => (
             <Card
               onClick={() => chooseCard(character)}
@@ -110,16 +120,18 @@ export default function App() {
 
         {view === viewStates.wonGame && (
           <div className="winner-container">
-            <WinScreen score={score}></WinScreen>
+            <WinScreen message={message} reset={reset}></WinScreen>
           </div>
         )}
 
         {view === viewStates.gameOver && (
-          <div className="loser-container">
-            <LooseScreen score={score}></LooseScreen>
+          <div className="looser-container">
+            <LooseScreen message={message} reset={reset}></LooseScreen>
           </div>
         )}
       </Main>
+
+      <Footer></Footer>
     </div>
   );
 }
