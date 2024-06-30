@@ -7,20 +7,21 @@ interface HeaderProps {
 export function Header({ score, highscore, difficulty, reset }: HeaderProps) {
   return (
     <header>
-      <div>
-        <button className="reset" onClick={reset}>
-          Reset
-        </button>
-        <div className="highscore">Difficulty: {difficulty}</div>
-      </div>
+      <div className="header-wrapper">
+        <div className="difficulty container">
+          <div>Difficulty: {difficulty}</div>
 
-      <div>
-        <img src="" alt="Logo of ATLA" />
-      </div>
+          <button className="reset" onClick={reset}>
+            Reset
+          </button>
+        </div>
 
-      <div>
-        <div>Score: {score}</div>
-        <div>Highscore: {highscore}</div>
+        <div id="atla-logo"></div>
+
+        <div className="scoreboard container">
+          <div>Score: {score}</div>
+          <div>Highscore: {highscore}</div>
+        </div>
       </div>
     </header>
   );
