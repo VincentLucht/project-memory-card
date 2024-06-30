@@ -26,7 +26,7 @@ export function getMessage(rawDifficulty: string, rawResult: boolean) {
     avatar: {
       win: "You've mastered the elements of memory! You truly are the Avatar.",
       loose:
-        'Even the Avatar stumbles sometimes. Keep practicing to reach your full potential.',
+        'Even the Avatar stumbles. Keep practicing for your full potential.',
     },
   };
 
