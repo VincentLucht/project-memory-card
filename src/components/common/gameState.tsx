@@ -1,26 +1,35 @@
 import { winningGif, losingGif } from '../../typescript/characters';
 import { Card } from './card';
 
-function WinScreen({ score, highscore }) {
+interface ScreenProps {
+  message: string;
+  reset: () => void;
+}
+
+function WinScreen({ message, reset }: ScreenProps) {
   const query = winningGif.id;
 
   return (
     <Card
       query={query}
-      name={`Your score was ${score}\nYour highscore was ${highscore}`}
-      className="card winning-card"
+      name={message}
+      className="card end-card"
+      addButton={true}
+      reset={reset}
     ></Card>
   );
 }
 
-function LooseScreen({ score, highscore }) {
+function LooseScreen({ message, reset }: ScreenProps) {
   const query = losingGif.id;
 
   return (
     <Card
       query={query}
-      name={'You still have much to study...'}
-      className="card losing-card"
+      name={message}
+      className="card end-card"
+      addButton={true}
+      reset={reset}
     ></Card>
   );
 }
