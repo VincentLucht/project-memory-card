@@ -34,7 +34,7 @@ const winningGif = {
 };
 
 const losingGif = {
-  id: 'USEFIDRItfIrK',
+  id: '12nPEUFzhRK9sk', // 'USEFIDRItfIrK'
 };
 
 function getDifficulty(
