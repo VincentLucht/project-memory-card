@@ -1,0 +1,30 @@
+footer {
+  display: grid;
+  place-content: center;
+  background-color: var(--nickelodeon--orange);
+}
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+#github {
+  width: 30px;
+  cursor: pointer;
+}
+#github-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#odin {
+  text-decoration: underline;
+  color: white;
+  cursor: pointer;
+}
+#odin-link {
+  text-decoration: none;
+}

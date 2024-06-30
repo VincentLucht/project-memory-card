@@ -1,0 +1,27 @@
+header {
+  display: grid;
+  place-content: center;
+  background-color: rgb(160, 153, 153);
+}
+
+.header-wrapper {
+  width: clamp(800px, 60vw, 1000px);
+  max-width: 1280px;
+  display: grid;
+  place-content: center;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#atla-logo {
+  background-image: url('../../public/atla.png');
+  background-size: contain; /* ensures the image fits within the div */
+  background-position: center; /* centers the image */
+  background-repeat: no-repeat; 
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
