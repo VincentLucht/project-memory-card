@@ -30,35 +30,45 @@ const characters = [
 ];
 
 const winningGif = {
-  id: '3o751PHkfGpIjPTuJa',
+  id: 'jaQuaJ8clDC1i',
 };
 
 const losingGif = {
-  id: '3o751PHkfGpIjPTuJa',
+  id: 'USEFIDRItfIrK',
 };
 
-function getDifficulty(difficulty: string, characters: object[]) {
+function getDifficulty(
+  difficulty: string,
+  characters: object[],
+  returnValue = 'amount',
+): string {
   const elementAmount = () => {
     switch (difficulty) {
       case 'Novice':
-        return 3;
+        return { amount: 8, gridAmount: 'novice-grid' };
 
       case 'Apprentice':
-        return 12;
+        return { amount: 12, gridAmount: 'apprentice-grid' };
 
       case 'Master':
-        return 18;
+        return { amount: 18, gridAmount: 'master-grid' };
 
       case 'Avatar':
-        return 24;
+        return { amount: 24, gridAmount: 'avatar-grid' };
 
       default:
         return 'Invalid';
     }
   };
 
-  const amount = elementAmount();
-  return typeof amount === 'number' ? characters.slice(0, amount) : amount;
+  const amountObj = elementAmount();
+  const { amount } = amountObj;
+
+  if (returnValue === 'amount') {
+    return typeof amount === 'number' ? characters.slice(0, amount) : amount;
+  } else if (returnValue === 'gridAmount') {
+    return amountObj.gridAmount;
+  }
 }
 
 export { characters, winningGif, losingGif, getDifficulty };
