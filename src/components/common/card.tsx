@@ -12,8 +12,17 @@ interface CardProps {
   query: string;
   name: string;
   className: string;
+  addButton: boolean;
+  reset?: () => void;
 }
-function Card({ onClick, query, name, className = 'card' }: CardProps) {
+function Card({
+  onClick,
+  query,
+  name,
+  className = 'card',
+  addButton = false,
+  reset,
+}: CardProps) {
   const [gif, setGif] = useState<GifData | null>(null); // initialize with null or a structure that matches your expected data
 
   useEffect(() => {
@@ -41,6 +50,13 @@ function Card({ onClick, query, name, className = 'card' }: CardProps) {
         style={{ backgroundImage: `url("${gif.images.original.url}")` }}
       ></div>
       <div className="card-name">{name}</div>
+      {addButton && (
+        <div className="replay-container">
+          <button className="reset" onClick={reset}>
+            Replay
+          </button>
+        </div>
+      )}
     </div>
   );
 }
